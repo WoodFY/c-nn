@@ -72,3 +72,65 @@ Matrix Matrix::multiply(const Matrix& other) const {
 	}
 	return result;
 }
+
+Matrix Matrix::operator*(double scalar) const {
+	Matrix result(rows_, cols_);
+	for (int i = 0; i < rows_; ++i) {
+		for (int j = 0; j < cols_; ++j) {
+			result(i, j) = data_[i][j] * scalar;
+		}
+	}
+	return result;
+}
+
+Matrix Matrix::operator+(double scalar) const {
+	Matrix result(rows_, cols_);
+	for (int i = 0; i < rows_; ++i) {
+		for (int j = 0; j < cols_; ++j) {
+			result(i, j) = data_[i][j] + scalar;
+		}
+	}
+	return result;
+}
+
+Matrix Matrix::transpose() const {
+	Matrix result(cols_, rows_);
+	for (int i = 0; i < rows_; ++i) {
+		for (int j = 0; j < cols_; ++j) {
+			result(j, i) = data_[i][j];
+		}
+	}
+	return result;
+}
+
+Matrix Matrix::apply(const Matrix& m, const std::function<double(double)>& func) {
+	Matrix result = m;
+	for (int i = 0; i < result.rows_; ++i) {
+		for (int j = 0; j < result.cols_; ++j) {
+			result(i, j) = func(result(i, j));
+		}
+	}
+	return result;
+}
+
+Matrix Matrix::random(int rows, int cols) {
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_real_distribution<> dis(-1.0, 1.0);
+	Matrix result(rows, cols);
+	for (int i = 0; i < rows; ++i) {
+		for (int j = 0; j < cols; ++j) {
+			result(i, j) = dis(gen);
+		}
+	}
+	return result;
+}
+
+void Matrix::print() const {
+	for (int i = 0; i < rows_; ++i) {
+		for (int j = 0; j < cols_; ++j) {
+			std::cout << std::fixed << std::setprecision(4) << data_[i][j] << "\t";
+		}
+		std::cout << std::endl;
+	}
+}
