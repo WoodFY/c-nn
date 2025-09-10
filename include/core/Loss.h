@@ -8,4 +8,4 @@ struct MeanSquareError {
 	static Matrix backward(const Matrix& predictions, const Matrix& targets);
 };
 
-#define C_NN_LOSS_H
+#endif // C_NN_LOSS_H

@@ -19,4 +19,4 @@ struct ReLU {
 
 void get_activation_functions(const std::string& type, ActivationFunction& fwd, ActivationFunction& bwd);
 
-#define C_NN_ACTIVATION_H // C_NN_ACTIVATION_H
+#endif // C_NN_ACTIVATION_H
